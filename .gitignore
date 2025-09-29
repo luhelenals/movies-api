@@ -1,7 +1,5 @@
-/bin
-bin/
 **/bin/
 
-/obj
-obj/
 **/obj/
+
+**/Migrations/
