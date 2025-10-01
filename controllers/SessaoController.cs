@@ -29,6 +29,17 @@ namespace movies_api.controllers
             return Ok(sessoesDTO);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetSessaoById(int id)
+        {
+            var sessao = _context.Sessoes.Find(id);
+            if (sessao == null)
+            {
+                return NotFound();
+            }
+            return Ok(sessao.ToSessaoDTO());
+        }
+
         [HttpPost]
         public IActionResult CreateSessao([FromBody] SessaoDTO newSessao)
         {
@@ -38,5 +49,34 @@ namespace movies_api.controllers
             return CreatedAtAction(nameof(GetSessoes), new { id = sessao.Id }, newSessao);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSessao(int id)
+        {
+            var sessao = _context.Sessoes.Find(id);
+            if (sessao == null)
+            {
+                return NotFound();
+            }
+
+            _context.Sessoes.Remove(sessao);
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateSessao(int id, [FromBody] SessaoDTO updatedSessao)
+        {
+            var existingSessao = _context.Sessoes.Find(id);
+            if (existingSessao == null)
+            {
+                return NotFound();
+            }
+
+            existingSessao.Filme = updatedSessao.Filme;
+            existingSessao.Horario = updatedSessao.Horario;
+            existingSessao.Assentos = updatedSessao.Assentos;
+            _context.SaveChanges();
+            return NoContent();
+        }
     }
 }
