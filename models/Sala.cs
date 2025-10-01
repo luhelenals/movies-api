@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace movies_api.models
 {
-    public class Usuario
+    public class Sala
     {
         public int Id { get; set; }
         public string Nome { get; set; } = "";
-        public List<Reserva> Reservas { get; set; } = new List<Reserva>();
+        public int Capacidade { get; set; }
+        public List<Assento> Assentos { get; set; } = new List<Assento>();
+        public List<Sessao> Sessoes { get; set; } = new List<Sessao>();
     }
 }
