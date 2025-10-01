@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using movies_api.models;
 using Microsoft.EntityFrameworkCore;
+using movies_api.controllers;
 
 namespace movies_api.data
 {
     public class MoviesContext : DbContext
     {
-        
         public DbSet<Assento> Assentos { get; set; }
         public DbSet<Sessao> Sessoes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
