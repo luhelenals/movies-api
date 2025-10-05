@@ -75,5 +75,18 @@ namespace movies_api.controllers
             }
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, UsuarioDTO dto)
+        {
+            var usuario = await _service.UpdateByIdAsync(id, dto);
+
+            if (usuario is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
     }
 }

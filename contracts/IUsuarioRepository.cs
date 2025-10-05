@@ -14,5 +14,6 @@ namespace movies_api.contracts
         Task<List<Usuario>> GetAllAsync();
         Task<Usuario?> CreateAsync(Usuario usuario);
         Task<bool> DeleteByIdAsync(int id);
+        Task<Usuario?> UpdateByIdAsync(int id, Usuario usuario);
     }
 }

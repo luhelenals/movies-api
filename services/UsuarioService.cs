@@ -57,5 +57,11 @@ namespace movies_api.services
         {
             return await _repository.DeleteByIdAsync(id);
         }
+
+        public async Task<Usuario?> UpdateByIdAsync(int id, UsuarioDTO dto)
+        {
+            Usuario usuario = UsuarioMapper.ToUsuarioModel(dto);
+            return await _repository.UpdateByIdAsync(id, usuario);
+        }
     }
 }

@@ -45,5 +45,19 @@ namespace movies_api.repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<Usuario?> UpdateByIdAsync(int id, Usuario usuario)
+        {
+            var oldUsuario = await _context.Usuarios.FindAsync(id);
+            if (oldUsuario is null)
+                return null;
+
+            oldUsuario.Nome = usuario.Nome;
+            oldUsuario.Reservas = usuario.Reservas;
+
+            await _context.SaveChangesAsync();
+
+            return oldUsuario;
+        }
     }
 }
