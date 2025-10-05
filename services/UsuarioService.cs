@@ -31,7 +31,7 @@ namespace movies_api.services
             {
                 throw new ArgumentException("Usuário já existe");
             }
-            
+
             return await _repository.CreateAsync(usuario: UsuarioMapper.ToUsuarioModel(dto));
         }
 
@@ -51,6 +51,11 @@ namespace movies_api.services
             ArgumentNullException.ThrowIfNull(nome);
 
             return await _repository.GetByNameAsync(nome);
+        }
+
+        public async Task<bool> DeleteByIdAsync(int id)
+        {
+            return await _repository.DeleteByIdAsync(id);
         }
     }
 }

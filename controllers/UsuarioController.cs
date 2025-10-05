@@ -64,5 +64,16 @@ namespace movies_api.controllers
             var usuarios = await _service.GetAllAsync();
             return Ok(usuarios);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            bool deleted = await _service.DeleteByIdAsync(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
     }
 }

@@ -34,5 +34,16 @@ namespace movies_api.repositories
         {
             return await _context.Usuarios.AsNoTracking().ToListAsync();
         }
+
+        public async Task<bool> DeleteByIdAsync(int id)
+        {
+            var usuario = _context.Usuarios.Find(id);
+            if (usuario is null)
+                return false;
+
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
