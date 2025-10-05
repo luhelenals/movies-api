@@ -17,15 +17,26 @@ namespace movies_api.controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] UsuarioDTO dto)
         {
-            var usuario = await _service.ExecuteAsync(dto);
-            if(usuario == null)
+            try
             {
-                return BadRequest("Não foi possível criar o usuário");
+                var usuario = await _service.ExecuteAsync(dto);
+                if (usuario == null)
+                {
+                    return BadRequest("Não foi possível criar o usuário");
+                }
+                return CreatedAtRoute("GetUsuarioById", new { id = usuario.Id }, usuario);
             }
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = usuario.Id }, usuario);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Erro interno ao criar usuário");
+            }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUsuarioById")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var usuario = await _service.GetByIdAsync(id);
