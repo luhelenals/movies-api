@@ -8,9 +8,9 @@ namespace movies_api.dtos
 {
     public class SessaoDTO
     {
-        public int? Id { get; set; }
-        public DateTime Horario { get; set; }
         public string Filme { get; set; } = "";
-        public List<Assento> Assentos { get; set; } = new List<Assento>();
+        public DateTime HorarioInicio { get; set; }
+        public DateTime HorarioFim { get; set; }
+        public int SalaId { get; set; }
     }
 }

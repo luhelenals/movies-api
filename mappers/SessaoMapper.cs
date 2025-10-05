@@ -13,10 +13,10 @@ namespace movies_api.mappers
         {
             return new SessaoDTO
             {
-                Id = SessaoModel.Id,
                 Filme = SessaoModel.Filme,
-                Horario = SessaoModel.Horario,
-                Assentos = SessaoModel.Assentos
+                HorarioInicio = SessaoModel.HorarioInicio,
+                HorarioFim = SessaoModel.HorarioFim,
+                SalaId = SessaoModel.SalaId
             };
         }
 
@@ -25,8 +25,10 @@ namespace movies_api.mappers
             return new Sessao
             {
                 Filme = SessaoDTO.Filme,
-                Horario = SessaoDTO.Horario,
-                Assentos = SessaoDTO.Assentos
+                HorarioInicio = SessaoDTO.HorarioInicio,
+                HorarioFim = SessaoDTO.HorarioFim,
+                SalaId = SessaoDTO.SalaId,
+                Sala = null // provisório, add repositório depois
             };
         }
     }
