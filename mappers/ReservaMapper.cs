@@ -14,7 +14,7 @@ namespace movies_api.mappers
         private readonly SessaoService _sessaoService = sessaoService;
         private readonly UsuarioService _usuarioService = usuarioService;
 
-        public ReservaDTO ToReservaDTO(Reserva reserva)
+        public static ReservaDTO ToReservaDTO(Reserva reserva)
         {
             List<int> assentos = reserva.Assentos.Select(a => a.Id).ToList();
             return new ReservaDTO

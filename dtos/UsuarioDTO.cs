@@ -9,6 +9,6 @@ namespace movies_api.dtos
     public class UsuarioDTO
     {
         public string Nome { get; set; } = "";
-        public List<Reserva>? Reservas { get; set; } = new List<Reserva>();
+        public List<Reserva>? Reservas { get; set; } = [];
     }
 }

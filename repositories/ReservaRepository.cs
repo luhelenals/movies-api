@@ -44,7 +44,7 @@ namespace movies_api.repositories
 
         public async Task<Reserva?> UpdateByIdAsync(int id, Reserva reserva)
         {
-            var oldReserva = await _context.Reservas.FindAsync(id);
+            var oldReserva = await GetByIdAsync(id);
             if (oldReserva is null)
                 return null;
 

@@ -9,8 +9,9 @@ using movies_api.mappers;
 
 namespace movies_api.services
 {
-    public class AssentoService(IAssentoRepository repository)
+    public class AssentoService(IAssentoRepository repository, AssentoMapper mapper)
     {
+        private readonly AssentoMapper _mapper = mapper;
         private readonly IAssentoRepository _repository = repository;
 
         public async Task<Assento?> GetByIdAsync(int id)
@@ -20,7 +21,7 @@ namespace movies_api.services
 
         public async Task<Assento?> CreateAsync(AssentoDTO dto)
         {
-            Assento assento = AssentoMapper.ToAssento(dto);
+            Assento assento = await _mapper.ToAssento(dto);
             var response = await _repository.CreateAsync(assento);
             return response;
         }
