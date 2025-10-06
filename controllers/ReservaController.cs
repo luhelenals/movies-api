@@ -14,6 +14,14 @@ namespace movies_api.controllers
     {
         private readonly ReservaService _service = service;
 
+        /// <summary>
+        /// Obtém uma reserva pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///   <response code="200">Retorna a reserva com o ID especificado.</response>
+        ///  <response code="404">Se a reserva com o ID especificado não for encontrada.</response>
+        /// </returns>
         [HttpGet("{id}", Name = "GetById")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -24,6 +32,13 @@ namespace movies_api.controllers
             return Ok(reserva);
         }
 
+        /// <summary>
+        /// Cria uma nova reserva de assentos.
+        /// </summary>
+        /// <param name="dto">Dados da reserva a ser criada.</param>
+        /// <response code="201">Retorna a reserva recém-criada.</response>
+        /// <response code="400">Se um dos assentos já estiver ocupado ou os dados forem inválidos.</response>
+        /// <response code="500">Se ocorrer um erro interno ao criar a reserva.</response>
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] ReservaDTO dto)
         {
@@ -45,7 +60,15 @@ namespace movies_api.controllers
                 return StatusCode(500, "Erro interno ao criar reserva");
             }
         }
-
+        
+        /// <summary>
+        /// Exclui uma reserva pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// <response code="204">Se a reserva foi excluída com sucesso.</response>
+        /// <response code="404">Se a reserva com o ID especificado não for encontrada.</response>
+        /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteByIdAsync(int id)
         {
@@ -56,6 +79,12 @@ namespace movies_api.controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Obtém todas as reservas.
+        /// </summary>
+        /// <returns>
+        /// <response code="200">Retorna a lista de reservas.</response>
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -63,6 +92,16 @@ namespace movies_api.controllers
             return Ok(reservas);
         }
 
+        /// <summary>
+        /// Atualiza uma reserva existente pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns>
+        ///     <response code="200">Retorna a reserva atualizada.</response>
+        ///     <response code="400">Se os dados forem inválidos.</response>
+        ///     <response code="404">Se a reserva com o ID especificado não for encontrada.</response>
+        /// </returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] ReservaDTO dto)
         {
@@ -84,6 +123,13 @@ namespace movies_api.controllers
             }
         }
 
+        /// <summary>
+        /// Obtém todas as reservas feitas por um usuário específico.
+        /// </summary>
+        /// <param name="usuarioId"></param>
+        /// <returns>
+        ///     <response code="200">Retorna a lista de reservas do usuário.</response>
+        /// </returns>
         [HttpGet("usuario/{usuarioId}")]
         public async Task<IActionResult> GetReservasByUsuario([FromRoute] int usuarioId)
         {

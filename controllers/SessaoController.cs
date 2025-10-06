@@ -15,6 +15,12 @@ namespace movies_api.controllers
     {
         private readonly SessaoService _service = service;
 
+        /// <summary>
+        ///   Obtém todas as sessões.
+        /// </summary>
+        /// <returns>
+        ///     <response code="200">Retorna a lista de sessões.</response>
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -22,6 +28,14 @@ namespace movies_api.controllers
             return Ok(sessoes.Select(s => SessaoMapper.ToSessaoDTO(s)));
         }
 
+        /// <summary>
+        ///  Obtém uma sessão pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///     <response code="200">Retorna a sessão com o ID especificado.</response>
+        ///     <response code="404">Se a sessão com o ID especificado não for
+        /// </returns>
         [HttpGet("{id}", Name = "GetSessaoById")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -32,6 +46,15 @@ namespace movies_api.controllers
             return Ok(SessaoMapper.ToSessaoDTO(sessao));
         }
 
+        /// <summary>
+        ///  Cria uma nova sessão.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>
+        ///     <response code="201">Retorna a sessão recém-criada.</response>
+        ///     <response code="400">Se os dados forem inválidos.</response>
+        ///   <response code="500">Se ocorrer um erro interno ao criar a sessão.</response>
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> CreateAsync(SessaoDTO dto)
         {
@@ -54,6 +77,17 @@ namespace movies_api.controllers
             }
         }
 
+        /// <summary>
+        /// Atualiza uma sessão existente pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns>
+        ///     <response code="200">Retorna a sessão atualizada.</response>
+        ///     <response code="400">Se os dados forem inválidos.</response>
+        ///     <response code="404">Se a sessão com o ID especificado não for encontrada.</response>
+        ///     <response code="500">Se ocorrer um erro interno ao atualizar a sessão.</response>
+        /// </returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id, SessaoDTO dto)
         {
@@ -75,6 +109,14 @@ namespace movies_api.controllers
             }
         }
 
+        /// <summary>
+        /// Exclui uma sessão pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///     <response code="204">Se a sessão foi excluída com sucesso.</response>
+        ///     <response code="404">Se a sessão com o ID especificado não for encontrada.</response>
+        /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteByIdAsync(int id)
         {

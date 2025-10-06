@@ -5,6 +5,7 @@ using movies_api.contracts;
 using movies_api.services;
 using movies_api.mappers;
 using SQLitePCL;
+using System.Reflection;
 
 Batteries.Init();
 
@@ -30,12 +31,25 @@ builder.Services.AddControllers(); // add mapamento de controllers
 builder.Services.AddDbContext<MoviesContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new()
+    {
+        Title = "Movies API",
+        Version = "v1"
+    });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

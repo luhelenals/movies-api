@@ -14,6 +14,14 @@ namespace movies_api.controllers
     {
         private readonly AssentoService _service = service;
 
+        /// <summary>
+        /// Obtém um assento pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///     <response code="200">Retorna o assento com o ID especificado.</response>
+        ///     <response code="404">Se o assento com o ID especificado não for encontrado.</response>
+        /// </returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -24,6 +32,15 @@ namespace movies_api.controllers
             return Ok(assento);
         }
 
+        /// <summary>
+        /// Cria um novo assento.
+        /// </summary>
+        /// <param name="dto">Dados do assento a ser criado.</param>
+        /// <returns>
+        ///     <response code="201">Retorna o assento recém-criado.</response>
+        ///     <response code="400">Se os dados forem inválidos.</response>
+        ///     <response code="500">Se ocorrer um erro interno ao criar o assento.</response>
+        /// <returns>
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] AssentoDTO dto)
         {
@@ -46,6 +63,14 @@ namespace movies_api.controllers
             }
         }
 
+        /// <summary>
+        ///     Deletar um assento pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///     <response code="204">Se o assento foi excluído com sucesso.</response>
+        ///     <response code="404">Se o assento com o ID especificado não for encontrado.</response>
+        /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteByIdAsync(int id)
         {
@@ -56,6 +81,12 @@ namespace movies_api.controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///   Obtém todos os assentos.
+        /// </summary>
+        /// <returns>
+        ///    <response code="200">Retorna a lista de assentos.</response>
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {

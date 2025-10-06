@@ -14,6 +14,15 @@ namespace movies_api.controllers
     {
         private readonly UsuarioService _service = service;
 
+        /// <summary>
+        ///     Cria um novo usuário.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>
+        ///     <response code="201">Retorna o usuário recém-criado.</response>
+        ///     <response code="400">Se os dados forem inválidos.</response>
+        ///   <response code="500">Se ocorrer um erro interno ao criar o usuário.</response>
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] UsuarioDTO dto)
         {
@@ -36,6 +45,14 @@ namespace movies_api.controllers
             }
         }
 
+        /// <summary>
+        ///     Obtém um usuário pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///     <response code="200">Retorna o usuário com o ID especificado.</response>
+        ///     <response code="404">Se o usuário com o ID especificado não for encontrado.</response>
+        /// </returns>
         [HttpGet("{id}", Name = "GetUsuarioById")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -47,6 +64,14 @@ namespace movies_api.controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        ///   Obtém um usuário pelo nome.
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns>
+        ///     <response code="200">Retorna o usuário com o nome especificado.</response>
+        ///     <response code="404">Se o usuário com o nome especificado não for encontrado.</response>
+        /// </returns>
         [HttpGet("nome/{nome}")]
         public async Task<IActionResult> GetByNameAsync(string nome)
         {
@@ -58,6 +83,12 @@ namespace movies_api.controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        ///  Obtém todos os usuários.
+        /// </summary>
+        /// <returns>
+        ///     <response code="200">Retorna a lista de usuários.</response>
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -65,6 +96,14 @@ namespace movies_api.controllers
             return Ok(usuarios);
         }
 
+        /// <summary>
+        ///  Deleta um usuário pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///     <response code="204">Se o usuário foi excluído com sucesso.</response>
+        ///     <response code="404">Se o usuário com o ID especificado não for encontrado.</response>
+        /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -76,6 +115,15 @@ namespace movies_api.controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///  Atualiza um usuário existente pelo ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns>
+        ///     <response code="200">Retorna o usuário atualizado.</response>
+        ///     <response code="400">Se os dados forem inválidos.</response>
+        /// </returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id, UsuarioDTO dto)
         {
