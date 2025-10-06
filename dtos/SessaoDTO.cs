@@ -12,5 +12,8 @@ namespace movies_api.dtos
         public DateTime HorarioInicio { get; set; }
         public DateTime HorarioFim { get; set; }
         public int SalaId { get; set; }
+        // add assentos disponiveis
+        public int AssentosDisponiveis { get; set; }
+        public List<int> IdsAssentosDisponiveis { get; set; } = [];
     }
 }

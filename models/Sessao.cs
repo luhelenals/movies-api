@@ -15,5 +15,7 @@ namespace movies_api.models
         // sessão x sala -> N:1
         public int SalaId { get; set; }
         public Sala? Sala { get; set; }
+        // sessão x reserva -> 1:N
+        public List<Reserva> Reservas { get; set; } = [];
     }
 }

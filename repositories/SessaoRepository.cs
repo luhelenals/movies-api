@@ -12,16 +12,15 @@ namespace movies_api.repositories
     public class SessaoRepository(MoviesContext context) : ISessaoRepository
     {
         private readonly MoviesContext _context = context;
-        public async Task<Sessao?> GetByIdAsync(int id)
-        {
-            var sessao = await _context.Sessoes.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
-
-            return sessao;
-        }
 
         public async Task<List<Sessao>> GetAllAsync()
         {
-            return await _context.Sessoes.AsNoTracking().ToListAsync();
+            return await _context.Sessoes.AsNoTracking()
+                                 .Include(s => s.Sala)
+                                 .ThenInclude(sala => sala.Assentos)
+                                 .Include(s => s.Reservas)
+                                 .ThenInclude(reserva => reserva.Assentos)
+                                 .ToListAsync();
         }
 
         public async Task<Sessao?> CreateAsync(Sessao sessao)
@@ -62,6 +61,17 @@ namespace movies_api.repositories
         public async Task<List<Sessao>> GetSessoesBySalaIdAsync(int salaId)
         {
             return await _context.Sessoes.AsNoTracking().Where(s => s.SalaId == salaId).ToListAsync();
+        }
+
+        public async Task<Sessao?> GetByIdAsync(int id)
+        {
+            return await _context.Sessoes
+                .AsNoTracking()
+                .Include(s => s.Sala)
+                .ThenInclude(sala => sala.Assentos)
+                .Include(s => s.Reservas)
+                .ThenInclude(reserva => reserva.Assentos)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
     }
 }

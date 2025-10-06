@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using movies_api.dtos;
 using movies_api.services;
+using movies_api.mappers;
 
 namespace movies_api.controllers
 {
@@ -18,7 +19,7 @@ namespace movies_api.controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var sessoes = await _service.GetAllAsync();
-            return Ok(sessoes);
+            return Ok(sessoes.Select(s => SessaoMapper.ToSessaoDTO(s)));
         }
 
         [HttpGet("{id}", Name = "GetSessaoById")]
@@ -28,7 +29,7 @@ namespace movies_api.controllers
             if (sessao is null)
                 return NotFound();
 
-            return Ok(sessao);
+            return Ok(SessaoMapper.ToSessaoDTO(sessao));
         }
 
         [HttpPost]
