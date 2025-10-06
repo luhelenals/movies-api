@@ -14,5 +14,6 @@ namespace movies_api.contracts
         Task<bool> DeleteByIdAsync(int id);
         Task<Reserva?> UpdateByIdAsync(int id, Reserva reserva);
         Task<List<Reserva>> GetReservasByUsuario(int usuarioId);
+        Task<List<int>> GetAssentosOcupadosIdsAsync(int sessaoId);
     }
 }

@@ -75,5 +75,14 @@ namespace movies_api.repositories
             return await _context.Reservas.Where(r => r.UsuarioId == usuarioId).ToListAsync();
         }
 
+        public async Task<List<int>> GetAssentosOcupadosIdsAsync(int sessaoId)
+        {
+            return await _context.Reservas.AsNoTracking()
+                                 .Where(r => r.SessaoId == sessaoId)
+                                 .SelectMany(r => r.Assentos)
+                                 .Select(a => a.Id)
+                                 .ToListAsync();
+        }
+
     }
 }

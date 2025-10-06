@@ -25,6 +25,14 @@ namespace movies_api.services
 
         public async Task<Reserva?> CreateAsync(ReservaDTO dto)
         {
+            // validação de assentos ocupados
+            var assentosOcupados = await _repository.GetAssentosOcupadosIdsAsync(dto.SessaoId);
+            var assentoSolicitadoJaOcupado = dto.Assentos.Any(idAssento => assentosOcupados.Contains(idAssento));
+            if (assentoSolicitadoJaOcupado)
+            {
+                throw new ArgumentException("Um ou mais assentos selecionados já estão ocupados para esta sessão.");
+            }
+            
             Reserva reserva = ReservaMapper.ToReserva(dto);
             return await _repository.CreateAsync(reserva);
         }
