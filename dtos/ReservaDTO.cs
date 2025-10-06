@@ -8,7 +8,7 @@ namespace movies_api.dtos
 {
     public class ReservaDTO
     {
-        public List<Assento> Assentos { get; set; } = [];
+        public List<int> Assentos { get; set; } = [];
         public int UsuarioId { get; set; }
         public int SessaoId { get; set; }
     }

@@ -9,7 +9,7 @@ namespace movies_api.dtos
     {
         public string Nome { get; set; } = "";
         public int Capacidade { get; set; }
-        public List<int> Assentos { get; set; } = new List<int>();
-        public List<int> Sessoes { get; set; } = new List<int>();
+        public List<int> Assentos { get; set; } = [];
+        public List<int> Sessoes { get; set; } = [];
     }
 }

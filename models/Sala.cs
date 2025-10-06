@@ -10,7 +10,7 @@ namespace movies_api.models
         public int Id { get; set; }
         public string Nome { get; set; } = "";
         public int Capacidade { get; set; }
-        public List<Assento> Assentos { get; set; } = new List<Assento>();
-        public List<Sessao> Sessoes { get; set; } = new List<Sessao>();
+        public List<Assento> Assentos { get; set; } = [];
+        public List<Sessao> Sessoes { get; set; } = [];
     }
 }

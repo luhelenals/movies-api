@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<SessaoService>();
+builder.Services.AddScoped<ISessaoRepository, SessaoRepository>();
 builder.Services.AddOpenApi();
 builder.Services.AddControllers(); // add mapamento de controllers
 builder.Services.AddDbContext<MoviesContext>(options =>
