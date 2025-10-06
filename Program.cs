@@ -25,7 +25,6 @@ builder.Services.AddScoped<IAssentoRepository, AssentoRepository>();
 
 builder.Services.AddScoped<ReservaMapper>();
 builder.Services.AddScoped<SalaMapper>();
-builder.Services.AddScoped<AssentoMapper>();
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers(); // add mapamento de controllers

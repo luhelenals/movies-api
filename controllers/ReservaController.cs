@@ -12,8 +12,8 @@ namespace movies_api.controllers
     {
         private readonly ReservaService _service = service;
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{id}", Name="GetById")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var reserva = await _service.GetByIdAsync(id);
             if (reserva is null)
@@ -32,7 +32,7 @@ namespace movies_api.controllers
                 {
                     return BadRequest("Não foi possível criar a reserva");
                 }
-                return CreatedAtAction(nameof(GetById), new { id = reserva.Id }, reserva);
+                return CreatedAtAction("GetById", new { id = reserva.Id }, reserva);
             }
             catch (ArgumentException ex)
             {

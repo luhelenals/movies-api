@@ -19,13 +19,11 @@ namespace movies_api.mappers
             };
         }
 
-        public async Task<Assento> ToAssento(AssentoDTO dto)
+        public static Assento ToAssento(AssentoDTO dto)
         {
             return new Assento
             {
-                Reservas = [],
-                SalaId = dto.SalaId,
-                Sala = await _service.GetByIdAsync(dto.SalaId) ?? throw new Exception("Sala not found")
+                SalaId = dto.SalaId
             };
         }
     }
