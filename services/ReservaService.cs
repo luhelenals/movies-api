@@ -9,10 +9,9 @@ using movies_api.mappers;
 
 namespace movies_api.services
 {
-    public class ReservaService(IReservaRepository repository, ReservaMapper mapper)
+    public class ReservaService(IReservaRepository repository)
     {
         private readonly IReservaRepository _repository = repository;
-        private readonly ReservaMapper _mapper = mapper;
 
         public async Task<List<Reserva>> GetAllAsync()
         {
@@ -26,7 +25,7 @@ namespace movies_api.services
 
         public async Task<Reserva?> CreateAsync(ReservaDTO dto)
         {
-            Reserva reserva = await _mapper.ToReserva(dto);
+            Reserva reserva = ReservaMapper.ToReserva(dto);
             return await _repository.CreateAsync(reserva);
         }
 
@@ -37,7 +36,7 @@ namespace movies_api.services
 
         public async Task<Reserva?> UpdateByIdAsync(int id, ReservaDTO dto)
         {
-            Reserva reserva = await _mapper.ToReserva(dto);
+            Reserva reserva = ReservaMapper.ToReserva(dto);
             return await _repository.UpdateByIdAsync(id, reserva);
         }
     }

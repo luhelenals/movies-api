@@ -23,7 +23,6 @@ builder.Services.AddScoped<ISalaRepository, SalaRepository>();
 builder.Services.AddScoped<AssentoService>();
 builder.Services.AddScoped<IAssentoRepository, AssentoRepository>();
 
-builder.Services.AddScoped<ReservaMapper>();
 builder.Services.AddScoped<SalaMapper>();
 
 builder.Services.AddOpenApi();

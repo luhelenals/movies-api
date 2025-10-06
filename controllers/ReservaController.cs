@@ -8,11 +8,13 @@ using movies_api.dtos;
 
 namespace movies_api.controllers
 {
+    [ApiController]
+    [Route("api/reserva")]
     public class ReservaController(ReservaService service) : ControllerBase
     {
         private readonly ReservaService _service = service;
 
-        [HttpGet("{id}", Name="GetById")]
+        [HttpGet("{id}", Name = "GetById")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var reserva = await _service.GetByIdAsync(id);
@@ -32,7 +34,7 @@ namespace movies_api.controllers
                 {
                     return BadRequest("Não foi possível criar a reserva");
                 }
-                return CreatedAtAction("GetById", new { id = reserva.Id }, reserva);
+                return CreatedAtAction("GetById", new { id = reserva.Id }, dto);
             }
             catch (ArgumentException ex)
             {
@@ -70,7 +72,7 @@ namespace movies_api.controllers
                 if (reserva is null)
                     return NotFound();
 
-                return Ok(reserva);
+                return Ok(dto);
             }
             catch (ArgumentException ex)
             {

@@ -20,12 +20,17 @@ namespace movies_api.repositories
 
         public async Task<Reserva?> GetByIdAsync(int id)
         {
-            var reserva = await _context.Reservas.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
+            var reserva = await _context.Reservas.FirstOrDefaultAsync(r => r.Id == id);
             return reserva;
         }
 
         public async Task<Reserva?> CreateAsync(Reserva reserva)
         {
+            foreach (var assento in reserva.Assentos)
+            {
+                _context.Attach(assento);
+            }
+
             await _context.Reservas.AddAsync(reserva);
             await _context.SaveChangesAsync();
             return reserva;
@@ -33,7 +38,7 @@ namespace movies_api.repositories
 
         public async Task<bool> DeleteByIdAsync(int id)
         {
-            var reserva = await GetByIdAsync(id);
+            var reserva = await _context.Reservas.FindAsync(id);
             if (reserva is null)
                 return false;
 
@@ -44,16 +49,21 @@ namespace movies_api.repositories
 
         public async Task<Reserva?> UpdateByIdAsync(int id, Reserva reserva)
         {
-            var oldReserva = await GetByIdAsync(id);
+            var oldReserva = await _context.Reservas
+                                   .Include(r => r.Assentos)
+                                   .FirstOrDefaultAsync(r => r.Id == id);
             if (oldReserva is null)
                 return null;
 
             oldReserva.DataReserva = reserva.DataReserva;
-            oldReserva.Assentos = reserva.Assentos;
             oldReserva.UsuarioId = reserva.UsuarioId;
-            oldReserva.Usuario = reserva.Usuario;
             oldReserva.SessaoId = reserva.SessaoId;
-            oldReserva.Sessao = reserva.Sessao;
+
+            oldReserva.Assentos.Clear();
+            foreach (var assento in reserva.Assentos)
+            {
+                oldReserva.Assentos.Add(assento);
+            }
 
             await _context.SaveChangesAsync();
 

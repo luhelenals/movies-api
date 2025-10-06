@@ -8,12 +8,8 @@ using movies_api.services;
 
 namespace movies_api.mappers
 {
-    public class ReservaMapper(AssentoService assentoService, SessaoService sessaoService, UsuarioService usuarioService)
+    public class ReservaMapper
     {
-        private readonly AssentoService _assentoService = assentoService;
-        private readonly SessaoService _sessaoService = sessaoService;
-        private readonly UsuarioService _usuarioService = usuarioService;
-
         public static ReservaDTO ToReservaDTO(Reserva reserva)
         {
             List<int> assentos = reserva.Assentos.Select(a => a.Id).ToList();
@@ -25,27 +21,15 @@ namespace movies_api.mappers
             };
         }
 
-        public async Task<Reserva> ToReserva(ReservaDTO dto)
+        public static Reserva ToReserva(ReservaDTO dto)
         {
-            var sessao = await _sessaoService.GetByIdAsync(dto.SessaoId);
-            var usuario = await _usuarioService.GetByIdAsync(dto.UsuarioId);
-            List<Assento> assentos = [];
-            foreach (var id in dto.Assentos)
-            {
-                var assento = await _assentoService.GetByIdAsync(id);
-                if (assento != null)
-                {
-                    assentos.Add(assento);
-                }
-            }
+            var assentosParaVincular = dto.Assentos.Select(assentoId => new Assento { Id = assentoId }).ToList();
 
             return new Reserva
                 {
                     UsuarioId = dto.UsuarioId,
                     SessaoId = dto.SessaoId,
-                    Sessao = sessao,
-                    Usuario = usuario,
-                    Assentos = assentos
+                    Assentos = assentosParaVincular
                 };
         }
     }
