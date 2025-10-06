@@ -70,5 +70,10 @@ namespace movies_api.repositories
             return oldReserva;
         }
 
+        public async Task<List<Reserva>> GetReservasByUsuario(int usuarioId)
+        {
+            return await _context.Reservas.Where(r => r.UsuarioId == usuarioId).ToListAsync();
+        }
+
     }
 }

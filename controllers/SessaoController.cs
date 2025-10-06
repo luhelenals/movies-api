@@ -52,5 +52,36 @@ namespace movies_api.controllers
                 return StatusCode(500, "Erro interno ao criar sessão");
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, SessaoDTO dto)
+        {
+            try
+            {
+                var updatedSessao = await _service.UpdateAsync(id, dto);
+                if (updatedSessao is null)
+                    return NotFound();
+
+                return Ok(updatedSessao);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Erro interno ao atualizar sessão");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteByIdAsync(int id)
+        {
+            var deleted = await _service.DeleteByIdAsync(id);
+            if (!deleted)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

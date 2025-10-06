@@ -39,5 +39,10 @@ namespace movies_api.services
             Reserva reserva = ReservaMapper.ToReserva(dto);
             return await _repository.UpdateByIdAsync(id, reserva);
         }
+
+        public async Task<List<Reserva>> GetReservasByUsuario(int usuarioId)
+        {
+            return await _repository.GetReservasByUsuario(usuarioId);
+        }
     }
 }

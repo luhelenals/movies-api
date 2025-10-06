@@ -83,5 +83,12 @@ namespace movies_api.controllers
                 return StatusCode(500, "Erro interno ao atualizar reserva");
             }
         }
+
+        [HttpGet("usuario/{usuarioId}")]
+        public async Task<IActionResult> GetReservasByUsuario([FromRoute] int usuarioId)
+        {
+            var reservas = await _service.GetReservasByUsuario(usuarioId);
+            return Ok(reservas);
+        }
     }
 }
