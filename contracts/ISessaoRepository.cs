@@ -13,5 +13,6 @@ namespace movies_api.contracts
         Task<Sessao?> CreateAsync(Sessao sessao);
         Task<bool> DeleteByIdAsync(int id);
         Task<Sessao?> UpdateByIdAsync(int id, Sessao sessao);
+        Task<List<Sessao>> GetSessoesBySalaIdAsync(int salaId);
     }
 }

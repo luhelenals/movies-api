@@ -26,6 +26,20 @@ namespace movies_api.services
         public async Task<Sessao?> CreateAsync(SessaoDTO dto)
         {
             Sessao sessao = SessaoMapper.ToSessaoModel(dto);
+
+            // verifica horários válidos
+            if (sessao.HorarioFim <= sessao.HorarioInicio)
+            {
+                throw new ArgumentException("O horário de fim deve ser maior que o horário de início.");
+            }
+
+            // validação de horários conflitantes na mesma sala
+            var sessoesSala = await _repository.GetSessoesBySalaIdAsync(sessao.SalaId);
+            if (sessoesSala.Any(s => s.HorarioInicio < sessao.HorarioFim && sessao.HorarioInicio < s.HorarioFim))
+            {
+                throw new ArgumentException("Conflito de horário com outra sessão na mesma sala.");
+            }
+
             var response = await _repository.CreateAsync(sessao);
             return response;
         }

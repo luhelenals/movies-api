@@ -57,7 +57,11 @@ namespace movies_api.repositories
             await _context.SaveChangesAsync();
 
             return oldSessao;
-            throw new NotImplementedException();
+        }
+
+        public async Task<List<Sessao>> GetSessoesBySalaIdAsync(int salaId)
+        {
+            return await _context.Sessoes.AsNoTracking().Where(s => s.SalaId == salaId).ToListAsync();
         }
     }
 }
